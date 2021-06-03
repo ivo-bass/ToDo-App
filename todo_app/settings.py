@@ -82,6 +82,8 @@ WSGI_APPLICATION = 'todo_app.wsgi.application'
 #     }
 # }
 
+
+# Linux run postgres command = sudo systemctl enable --now postgresql.service
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
