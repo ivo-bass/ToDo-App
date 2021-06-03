@@ -54,25 +54,25 @@
     }
 </style>
 <body>
-    <h1>My Todo List</h1>
-    {% if todos %}
-        <div class="container">
-            {% for todo in todos %}
-                <div class="todo">
-                    <p>{{ todo.title }}</p>
-                    <div class="description">
-                        Description: {{ todo.description }}
-                    </div>
-                    {% if todo.state %}
-                        <div class="done">DONE</div>
-                    {% else %}
-                        <div class="open">NOT DONE</div>
-                    {% endif %}
+<h1>My Todo List</h1>
+{% if todos %}
+    <div class="container">
+        {% for todo in todos %}
+            <div class="todo">
+                <p>{{ todo.title }}</p>
+                <div class="description">
+                    Description: {{ todo.description }}
                 </div>
-            {% endfor %}
-        </div>
-    {% else %}
-        <h2>No ToDos</h2>
-    {% endif %}
+                {% if todo.state %}
+                    <div class="done">DONE</div>
+                {% else %}
+                    <div class="open">NOT DONE</div>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <h2>No ToDos</h2>
+{% endif %}
 </body>
 </html>
