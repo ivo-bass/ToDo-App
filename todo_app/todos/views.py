@@ -38,3 +38,9 @@ def change_state(request, pk):
     todo.state = not todo.state
     todo.save()
     return redirect(index)
+
+
+def delete_todo(request, pk):
+    todo = Todo.objects.get(pk=pk)
+    todo.delete()
+    return redirect(index)

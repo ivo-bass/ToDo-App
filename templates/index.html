@@ -128,15 +128,35 @@
                     Description: {{ todo.description }}
                 </div>
                 <form method="post" action="change-state/{{ todo.id }}">
-                    {% csrf_token %}
+                {% csrf_token %}
                     {% if todo.state %}
                         <div class="done">DONE</div>
-                        <button type="button" class="btn btn-danger">MARK UNDONE</button>
+                        <button class="btn btn-success" disabled>CHANGE STATE</button>
                     {% else %}
                         <div class="open">NOT DONE</div>
-                        <button type="button" class="btn btn-success">MARK DONE</button>
+                        <button class="btn btn-success">CHANGE STATE</button>
                     {% endif %}
                 </form>
+
+                <form method="post" action="delete-todo/{{ todo.id }}">
+                    {% csrf_token %}
+                    <button class="btn btn-danger">DELETE</button>
+                </form>
+
+                {#                <form method="post" action="change-state/{{ todo.id }}">#}
+                {#                    {% csrf_token %}#}
+                {#                    {% if todo.state %}#}
+                {#                        <div class="done">DONE</div>#}
+                {#                        <button type="button" class="btn btn-warning">MARK UNDONE</button>#}
+                {#                    {% else %}#}
+                {#                        <div class="open">NOT DONE</div>#}
+                {#                        <button type="button" class="btn btn-success">MARK DONE</button>#}
+                {#                    {% endif %}#}
+                {#                </form>#}
+                {#                <form method="post" action="delete-todo/{{ todo.id }}">#}
+                {#                    {% csrf_token %}#}
+                {#                    <button type="button" class="btn btn-danger">DELETE</button>#}
+                {#                </form>#}
             </div>
 
 
