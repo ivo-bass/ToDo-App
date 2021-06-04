@@ -106,11 +106,6 @@
             <input type="text" class="form-control" name="description">
         </div>
 
-        <div class="mb-3">
-            <label class="form-label">Owner</label>
-            <input type="text" class="form-control" name="owner">
-        </div>
-
         <button type="submit" class="btn btn-primary">Add ToDo</button>
 
     </form>
@@ -123,7 +118,6 @@
         {% for todo in todos %}
             <div class="todo">
                 <p>{{ todo.title }}</p>
-                <p>{{ todo.owner.name }}</p>
                 <div class="description">
                     Description: {{ todo.description }}
                 </div>

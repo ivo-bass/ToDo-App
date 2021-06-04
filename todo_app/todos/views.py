@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-from todo_app.todos.models import Todo, Person
+from todo_app.todos.models import Todo
 
 
 def index(request):
@@ -13,20 +13,10 @@ def index(request):
 def create_todo(request):
     title = request.POST['title']
     description = request.POST['description']
-    owner_name = request.POST['owner']
-
-    owner = Person.objects\
-        .filter(name=owner_name)\
-        .first()
-
-    if not owner:
-        owner = Person(name=owner_name)
-        owner.save()
 
     todo = Todo(
         title=title,
         description=description,
-        owner=owner,
     )
     todo.save()
 
@@ -44,3 +34,7 @@ def delete_todo(request, pk):
     todo = Todo.objects.get(pk=pk)
     todo.delete()
     return redirect(index)
+
+# TODO 1: Add EDIT SCREEN
+# TODO 2: Add DUE DATE
+# TODO 3: SORT BY DUE DATE

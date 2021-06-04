@@ -1,7 +1,6 @@
 from django.db import models
 
 from .category import Category
-from .person import Person
 
 
 class Todo(models.Model):
@@ -18,13 +17,8 @@ class Todo(models.Model):
         blank=True,  # can save in admin with blank field / not required
     )
 
-    owner = models.ForeignKey(
-        Person,
-        on_delete=models.CASCADE,
-        null=True,
-    )
 
     category = models.ManyToManyField(Category)
 
     def __str__(self):
-        return f"{self.title} / {self.owner}"
+        return f"{self.title}"
