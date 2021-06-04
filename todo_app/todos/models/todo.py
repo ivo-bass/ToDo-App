@@ -15,6 +15,7 @@ class Todo(models.Model):
 
     description = models.TextField(
         null=True,
+        blank=True,  # can save in admin with blank field / not required
     )
 
     owner = models.ForeignKey(

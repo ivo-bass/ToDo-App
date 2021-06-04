@@ -3,76 +3,148 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todo App</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+            crossorigin="anonymous"></script>
+
+    <style>
+        h1 {
+            margin: 5px;
+            text-align: center;
+            padding: 5px;
+        }
+
+        h2 {
+            text-align: center;
+            text-decoration: underline;
+        }
+
+        div.done {
+            color: green;
+            font-weight: bold;
+        }
+
+        div.open {
+            color: red;
+            font-weight: bold;
+        }
+
+        div.todo {
+            display: block;
+            background: white;
+            border: 2px solid white;
+            border-radius: 10px;
+            margin: 5px;
+            text-align: center;
+        }
+
+        div.todo p {
+            font-size: 20px;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+
+        div.todo div.description {
+            padding: 10px;
+        }
+
+        div.container {
+            background: greenyellow;
+            display: flex;
+            flex-direction: column;
+            margin: 0 auto;
+            padding: 10px;
+        }
+    </style>
 </head>
-<style>
-    h1 {
-        margin: 5px;
-        text-align: center;
-        padding: 5px;
-    }
 
-    h2 {
-        text-align: center;
-        text-decoration: underline;
-    }
-
-    div.done {
-        color: green;
-        font-weight: bold;
-    }
-
-    div.open {
-        color: red;
-        font-weight: bold;
-    }
-
-    div.todo {
-        display: block;
-        background: white;
-        border: 2px solid white;
-        border-radius: 10px;
-        margin: 5px;
-        text-align: center;
-    }
-
-    div.todo p {
-        font-size: 20px;
-        font-weight: bold;
-        text-decoration: underline;
-    }
-
-    div.todo div.description {
-        padding: 10px;
-    }
-
-    div.container {
-        background: greenyellow;
-        display: flex;
-        flex-direction: column;
-        margin: 0 auto;
-        padding: 10px;
-    }
-</style>
 <body>
+
+{#<h1>Add ToDo</h1>#}
+{#<div class="container">#}
+{#    <form class="row mb-5" method="post" action="/add-todo/">#}
+{#        {% csrf_token %}#}
+{#        <div class="description">#}
+{#            <label>Title#}
+{#                <input type="text" class="form-control" name="title" placeholder="What's the Task?">#}
+{#            </label>#}
+{#        </div>#}
+{##}
+{#        <div class="">#}
+{#            <label>Description#}
+{#                <input type="text" class="form-control" name="description" placeholder="Write short description">#}
+{#            </label>#}
+{#        </div>#}
+{##}
+{#        <div>#}
+{#            <label>Owner#}
+{#                <input type="text" class="form-control" name="owner" placeholder="Who's ToDo is that?">#}
+{#            </label>#}
+{#        </div>#}
+{#        <div>#}
+{#            <button type="submit" class="btn btn-primary">Add ToDo</button>#}
+{#        </div>#}
+{#    </form>#}
+{#</div>#}
+
+<h1>Add ToDo</h1>
+<div class="container">
+    <form method="post" action="/add-todo/">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label class="form-label">Title</label>
+            <input type="text" class="form-control" name="title">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Description</label>
+            <input type="text" class="form-control" name="description">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Owner</label>
+            <input type="text" class="form-control" name="owner">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Add ToDo</button>
+
+    </form>
+</div>
+
+
 <h1>My Todo List</h1>
 {% if todos %}
     <div class="container">
         {% for todo in todos %}
             <div class="todo">
                 <p>{{ todo.title }}</p>
+                <p>{{ todo.owner.name }}</p>
                 <div class="description">
                     Description: {{ todo.description }}
                 </div>
-                {% if todo.state %}
-                    <div class="done">DONE</div>
-                {% else %}
-                    <div class="open">NOT DONE</div>
-                {% endif %}
+                <form method="post" action="change-state/{{ todo.id }}">
+                    {% csrf_token %}
+                    {% if todo.state %}
+                        <div class="done">DONE</div>
+                        <button type="button" class="btn btn-danger">MARK UNDONE</button>
+                    {% else %}
+                        <div class="open">NOT DONE</div>
+                        <button type="button" class="btn btn-success">MARK DONE</button>
+                    {% endif %}
+                </form>
             </div>
+
+
         {% endfor %}
     </div>
 {% else %}
     <h2>No ToDos</h2>
 {% endif %}
+
 </body>
 </html>
