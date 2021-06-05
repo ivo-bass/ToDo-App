@@ -97,13 +97,37 @@
         {% csrf_token %}
 
         <div class="mb-3">
-            <label class="form-label">Title</label>
-            <input type="text" class="form-control" name="title">
+            <label class="form-label">Title:</label>
+            <input type="text" class="form-control" name="title" required>
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Description</label>
-            <input type="text" class="form-control" name="description">
+            <label class="form-label">Description:</label>
+            <textarea class="form-control" name="description" rows="3"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Due Date:</label>
+            <input type="date" class="form-control" name="due-date" required pattern="\d{4}-\d{2}-\d{2}">
+            <span class="validity"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Priority:</label>
+            <select class="form-select" name="priority">
+                <option value="Low">Low</option>
+                <option value="Normal" selected>Normal</option>
+                <option value="Urgent">Urgent</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Category:</label>
+            <select class="form-select" name="category">
+                <option value="Other" selected>Other</option>
+                <option value="Home">Home</option>
+                <option value="Work">Work</option>
+            </select>
         </div>
 
         <button type="submit" class="btn btn-primary">Add ToDo</button>
@@ -121,8 +145,14 @@
                 <div class="description">
                     Description: {{ todo.description }}
                 </div>
+                <div class="description">
+                    Due Date: {{ todo.due_date }}
+                </div>
+                <div class="description">
+                    Priority: {{ todo.priority }}
+                </div>
                 <form method="post" action="change-state/{{ todo.id }}">
-                {% csrf_token %}
+                    {% csrf_token %}
                     {% if todo.state %}
                         <div class="done">DONE</div>
                         <button class="btn btn-success" disabled>CHANGE STATE</button>
@@ -136,21 +166,6 @@
                     {% csrf_token %}
                     <button class="btn btn-danger">DELETE</button>
                 </form>
-
-                {#                <form method="post" action="change-state/{{ todo.id }}">#}
-                {#                    {% csrf_token %}#}
-                {#                    {% if todo.state %}#}
-                {#                        <div class="done">DONE</div>#}
-                {#                        <button type="button" class="btn btn-warning">MARK UNDONE</button>#}
-                {#                    {% else %}#}
-                {#                        <div class="open">NOT DONE</div>#}
-                {#                        <button type="button" class="btn btn-success">MARK DONE</button>#}
-                {#                    {% endif %}#}
-                {#                </form>#}
-                {#                <form method="post" action="delete-todo/{{ todo.id }}">#}
-                {#                    {% csrf_token %}#}
-                {#                    <button type="button" class="btn btn-danger">DELETE</button>#}
-                {#                </form>#}
             </div>
 
 

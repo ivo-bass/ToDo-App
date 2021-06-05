@@ -13,10 +13,16 @@ def index(request):
 def create_todo(request):
     title = request.POST['title']
     description = request.POST['description']
+    due_date = request.POST['due-date']
+    priority = request.POST['priority']
+    category = request.POST['category']
 
     todo = Todo(
         title=title,
         description=description,
+        due_date=due_date,
+        priority=priority,
+        category=category,
     )
     todo.save()
 
@@ -35,8 +41,7 @@ def delete_todo(request, pk):
     todo.delete()
     return redirect(index)
 
-# TODO 2: Add DUE DATE
-# TODO 5: SET PRIORITY
 # TODO 1: Add EDIT SCREEN
-# TODO 3: SORT BY DUE DATE
-# TODO 4: SORT BY CATEGORY
+# TODO 2: SORT BY DUE DATE
+# TODO 3: SORT BY CATEGORY
+# TODO 4: ADD HISTORY
