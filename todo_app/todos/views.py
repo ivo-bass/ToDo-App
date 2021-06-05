@@ -38,3 +38,5 @@ def delete_todo(request, pk):
 # TODO 1: Add EDIT SCREEN
 # TODO 2: Add DUE DATE
 # TODO 3: SORT BY DUE DATE
+# TODO 4: SORT BY CATEGORY
+# TODO 5: SET PRIORITY
