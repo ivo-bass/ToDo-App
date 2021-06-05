@@ -7,5 +7,8 @@ class Priority(models.Model):
         null=True,
     )
 
+    def __str__(self):
+        return f"{self.name}"
+
     class Meta:
         verbose_name_plural = 'priorities'
