@@ -35,8 +35,8 @@ def delete_todo(request, pk):
     todo.delete()
     return redirect(index)
 
-# TODO 1: Add EDIT SCREEN
 # TODO 2: Add DUE DATE
+# TODO 5: SET PRIORITY
+# TODO 1: Add EDIT SCREEN
 # TODO 3: SORT BY DUE DATE
 # TODO 4: SORT BY CATEGORY
-# TODO 5: SET PRIORITY
