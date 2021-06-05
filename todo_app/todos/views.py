@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect
 
-from todo_app.todos.models import Todo
+from todo_app.todos.models import Todo, Priority, Category
 
 
 def index(request):
     context = {
         'todos': Todo.objects.all(),
+        'priorities': Priority.objects.all(),
+        'categories': Category.objects.all(),
     }
     return render(request, 'index.html', context)
 
@@ -14,8 +16,11 @@ def create_todo(request):
     title = request.POST['title']
     description = request.POST['description']
     due_date = request.POST['due-date']
-    priority = request.POST['priority']
-    category = request.POST['category']
+    priority_name = request.POST['priority']
+    category_name = request.POST['category']
+
+    priority = Priority.objects.filter(name=priority_name).first()
+    category = Category.objects.filter(name=category_name).first()
 
     todo = Todo(
         title=title,

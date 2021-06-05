@@ -2,6 +2,9 @@ from django.db import models
 
 from django.utils import timezone
 
+from .category import Category
+from .priority import Priority
+
 
 class Todo(models.Model):
     title = models.CharField(
@@ -21,32 +24,11 @@ class Todo(models.Model):
         default=timezone.now,
     )
 
-    PRIORITY_CHOICES = (
-        ('Low', 'Low'),
-        ('Normal', 'Normal'),
-        ('Urgent', 'Urgent'),
-    )
-    priority = models.CharField(
-        max_length=20,
-        default='Normal',
-        choices=PRIORITY_CHOICES,
-    )
+    # PRIORITY_CHOICES = ((obj.name, obj.name) for obj in Priority.objects.all())
+    priority = models.ForeignKey(Priority, on_delete=models.CASCADE, null=True)
 
-    CATEGORY_CHOICES = (
-        ('Home', 'Home'),
-        ('Family', 'Family'),
-        ('Work', 'Work'),
-        ('Study', 'Study'),
-        ('Cars', 'Cars'),
-        ('Friends', 'Friends'),
-        ('Other', 'Other'),
-    )
-    category = models.CharField(
-        max_length=20,
-        choices=CATEGORY_CHOICES,
-        blank=True,
-        null=True,
-    )
+    # CATEGORY_CHOICES = ((obj.name, obj.name) for obj in Category.objects.all())
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return f"{self.title}"

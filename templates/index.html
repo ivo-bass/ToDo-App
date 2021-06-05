@@ -16,11 +16,13 @@
             margin: 5px;
             text-align: center;
             padding: 5px;
+            color: #1a0090
         }
 
         h2 {
             text-align: center;
             text-decoration: underline;
+            color: #B00020;
         }
 
         div.done {
@@ -29,14 +31,14 @@
         }
 
         div.open {
-            color: red;
+            color: #B00020;
             font-weight: bold;
         }
 
         div.todo {
             display: block;
             background: white;
-            border: 2px solid white;
+            border: 2px solid #018786;
             border-radius: 10px;
             margin: 5px;
             text-align: center;
@@ -53,46 +55,21 @@
         }
 
         div.container {
-            background: greenyellow;
+            background: #04e7d2;
+            color: #1a0090;
             display: flex;
             flex-direction: column;
-            margin: 0 auto;
-            padding: 10px;
+            margin: auto;
+            padding: 40px;
+            border-radius: 20px;
         }
     </style>
 </head>
 
-<body>
-
-{#<h1>Add ToDo</h1>#}
-{#<div class="container">#}
-{#    <form class="row mb-5" method="post" action="/add-todo/">#}
-{#        {% csrf_token %}#}
-{#        <div class="description">#}
-{#            <label>Title#}
-{#                <input type="text" class="form-control" name="title" placeholder="What's the Task?">#}
-{#            </label>#}
-{#        </div>#}
-{##}
-{#        <div class="">#}
-{#            <label>Description#}
-{#                <input type="text" class="form-control" name="description" placeholder="Write short description">#}
-{#            </label>#}
-{#        </div>#}
-{##}
-{#        <div>#}
-{#            <label>Owner#}
-{#                <input type="text" class="form-control" name="owner" placeholder="Who's ToDo is that?">#}
-{#            </label>#}
-{#        </div>#}
-{#        <div>#}
-{#            <button type="submit" class="btn btn-primary">Add ToDo</button>#}
-{#        </div>#}
-{#    </form>#}
-{#</div>#}
+<body style="background: floralwhite">
 
 <h1>Add ToDo</h1>
-<div class="container">
+<div class="container container-fluid">
     <form method="post" action="/add-todo/">
         {% csrf_token %}
 
@@ -103,31 +80,46 @@
 
         <div class="mb-3">
             <label class="form-label">Description:</label>
-            <textarea class="form-control" name="description" rows="3"></textarea>
+            <textarea class="form-control" name="description" rows="3"></textarea></label>
         </div>
 
-        <div class="mb-3">
-            <label class="form-label">Due Date:</label>
-            <input type="date" class="form-control" name="due-date" required pattern="\d{4}-\d{2}-\d{2}">
-            <span class="validity"></span>
-        </div>
+        <div class="row form-row mb-3">
 
-        <div class="mb-3">
-            <label class="form-label">Priority:</label>
-            <select class="form-select" name="priority">
-                <option value="Low">Low</option>
-                <option value="Normal" selected>Normal</option>
-                <option value="Urgent">Urgent</option>
-            </select>
-        </div>
+            <div class="col col-md-6">
+                <label class="form-label">Due Date:
+                    <input type="date" class="form-control" name="due-date" required pattern="\d{4}-\d{2}-\d{2}">
+                    <span class="validity"></span>
+                </label>
+            </div>
 
-        <div class="mb-3">
-            <label class="form-label">Category:</label>
-            <select class="form-select" name="category">
-                <option value="Other" selected>Other</option>
-                <option value="Home">Home</option>
-                <option value="Work">Work</option>
-            </select>
+            <div class="col col-md-4">
+                <label class="form-label">Priority:
+                    <select class="form-select" name="priority">
+                        {% for priority in priorities %}
+                            {% if priority.name == "Normal" %}
+                                <option value="{{ priority.name }}" selected>{{ priority.name }}</option>
+                            {% else %}
+                                <option value="{{ priority.name }}">{{ priority.name }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </label>
+            </div>
+
+            <div class="col col-md-2">
+                <label class="form-label">Category:
+                    <select class="form-select" name="category">
+                        {% for category in categories %}
+                            {% if category.name == "Other" %}
+                                <option value="{{ category.name }}" selected>{{ category.name }}</option>
+                            {% else %}
+                                <option value="{{ category.name }}">{{ category.name }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </label>
+            </div>
+
         </div>
 
         <button type="submit" class="btn btn-primary">Add ToDo</button>
@@ -138,34 +130,51 @@
 
 <h1>My Todo List</h1>
 {% if todos %}
-    <div class="container">
+    <div class="container container-fluid">
         {% for todo in todos %}
             <div class="todo">
+
                 <p>{{ todo.title }}</p>
+
                 <div class="description">
                     Description: {{ todo.description }}
                 </div>
+
                 <div class="description">
                     Due Date: {{ todo.due_date }}
                 </div>
+
                 <div class="description">
                     Priority: {{ todo.priority }}
                 </div>
-                <form method="post" action="change-state/{{ todo.id }}">
-                    {% csrf_token %}
+
+                <div class="description">State:
                     {% if todo.state %}
                         <div class="done">DONE</div>
-                        <button class="btn btn-success" disabled>CHANGE STATE</button>
                     {% else %}
                         <div class="open">NOT DONE</div>
-                        <button class="btn btn-success">CHANGE STATE</button>
                     {% endif %}
-                </form>
+                </div>
 
-                <form method="post" action="delete-todo/{{ todo.id }}">
-                    {% csrf_token %}
-                    <button class="btn btn-danger">DELETE</button>
-                </form>
+                <div class="row form-row mb-3">
+                    <div class="col col-xs-1">
+                        <form method="post" action="change-state/{{ todo.id }}">
+                            {% csrf_token %}
+                            {% if todo.state %}
+                                <button class="btn btn-outline-success" disabled>CHANGE STATE</button>
+                            {% else %}
+                                <button class="btn btn-outline-success">CHANGE STATE</button>
+                            {% endif %}
+                        </form>
+                    </div>
+
+                    <div class="col col-xs-2">
+                        <form method="post" action="delete-todo/{{ todo.id }}">
+                            {% csrf_token %}
+                            <button class="btn btn-danger">DELETE</button>
+                        </form>
+                    </div>
+                </div>
             </div>
 
 
