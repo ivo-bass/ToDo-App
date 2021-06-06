@@ -1,188 +1,69 @@
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Todo App</title>
-    <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-    <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
-            crossorigin="anonymous"></script>
+{% extends 'base.html' %}
 
-    <style>
-        h1 {
-            margin: 5px;
-            text-align: center;
-            padding: 5px;
-            color: #1a0090
-        }
+{% block content %}
 
-        h2 {
-            text-align: center;
-            text-decoration: underline;
-            color: #B00020;
-        }
+    <h1>Today</h1>
 
-        div.done {
-            color: green;
-            font-weight: bold;
-        }
-
-        div.open {
-            color: #B00020;
-            font-weight: bold;
-        }
-
-        div.todo {
-            display: block;
-            background: white;
-            border: 2px solid #018786;
-            border-radius: 10px;
-            margin: 5px;
-            text-align: center;
-        }
-
-        div.todo p {
-            font-size: 20px;
-            font-weight: bold;
-            text-decoration: underline;
-        }
-
-        div.todo div.description {
-            padding: 10px;
-        }
-
-        div.container {
-            background: #04e7d2;
-            color: #1a0090;
-            display: flex;
-            flex-direction: column;
-            margin: auto;
-            padding: 40px;
-            border-radius: 20px;
-        }
-    </style>
-</head>
-
-<body style="background: floralwhite">
-
-<h1>Add ToDo</h1>
-<div class="container container-fluid">
-    <form method="post" action="/add-todo/">
-        {% csrf_token %}
-
-        <div class="mb-3">
-            <label class="form-label">Title:</label>
-            <input type="text" class="form-control" name="title" required>
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label">Description:</label>
-            <textarea class="form-control" name="description" rows="3"></textarea></label>
-        </div>
-
-        <div class="row form-row mb-3">
-
-            <div class="col col-md-6">
-                <label class="form-label">Due Date:
-                    <input type="date" class="form-control" name="due-date" required pattern="\d{4}-\d{2}-\d{2}">
-                    <span class="validity"></span>
-                </label>
-            </div>
-
-            <div class="col col-md-4">
-                <label class="form-label">Priority:
-                    <select class="form-select" name="priority">
-                        {% for priority in priorities %}
-                            {% if priority.name == "Normal" %}
-                                <option value="{{ priority.name }}" selected>{{ priority.name }}</option>
-                            {% else %}
-                                <option value="{{ priority.name }}">{{ priority.name }}</option>
-                            {% endif %}
-                        {% endfor %}
-                    </select>
-                </label>
-            </div>
-
-            <div class="col col-md-2">
-                <label class="form-label">Category:
-                    <select class="form-select" name="category">
-                        {% for category in categories %}
-                            {% if category.name == "Other" %}
-                                <option value="{{ category.name }}" selected>{{ category.name }}</option>
-                            {% else %}
-                                <option value="{{ category.name }}">{{ category.name }}</option>
-                            {% endif %}
-                        {% endfor %}
-                    </select>
-                </label>
-            </div>
-
-        </div>
-
-        <button type="submit" class="btn btn-primary">Add ToDo</button>
-
-    </form>
-</div>
-
-
-<h1>My Todo List</h1>
-{% if todos %}
     <div class="container container-fluid">
-        {% for todo in todos %}
-            <div class="todo">
+        <div class="todo">
+            {% if todos %}
 
-                <p>{{ todo.title }}</p>
+                <div class="list-group">
+                    {% for todo in todos %}
+                        <a href="/details/{{ todo.id }}" class="list-group-item list-group-item-action">
 
-                <div class="description">
-                    Description: {{ todo.description }}
+                            <div class="row row-cols-4">
+
+                                <div class="col-xs-1 d-flex justify-content-start">
+                                    <h5 class="mb-1" style="text-emphasis-style: filled">{{ todo.title }}</h5>
+                                </div>
+
+                                <div class="col-xs-2 d-flex justify-content-end">
+                                    <small>{{ todo.due_date }}</small>
+                                </div>
+
+                                <div class="col-xs-3 d-flex justify-content-start">
+                                    <small class="text-info">Status: </small>
+                                    {% if todo.state %}
+                                        <small class="text-success"> Done </small>
+                                    {% else %}
+                                        <small class="text-danger"> Not Done </small>
+                                    {% endif %}
+                                </div>
+
+                                <div class="col-xs-4 d-flex justify-content-end">
+                                    <form method="post" action="/change-state/{{ todo.id }}">
+                                        {% csrf_token %}
+                                        {% if todo.state %}
+                                            <button class="btn btn-outline-success" disabled>MARK DONE</button>
+                                        {% else %}
+                                            <button class="btn btn-outline-success">MARK DONE</button>
+                                        {% endif %}
+                                    </form>
+                                </div>
+
+                            </div>
+
+                            <div class="row row-cols-sm-4">
+                                {% if todo.priority.name == "High" %}
+                                    <small class="text-danger col-1">high priority</small>
+                                {% elif todo.priority.name == "Normal" %}
+                                    <small class="text-warning col-1">normal priority</small>
+                                {% else %}
+                                    <small class="text-success col-1">low priority</small>
+                                {% endif %}
+                            </div>
+
+                        </a>
+                    {% endfor %}
                 </div>
+            {% else %}
+                <h2>Nothing for today</h2>
+            {% endif %}
 
-                <div class="description">
-                    Due Date: {{ todo.due_date }}
-                </div>
-
-                <div class="description">
-                    Priority: {{ todo.priority }}
-                </div>
-
-                <div class="description">State:
-                    {% if todo.state %}
-                        <div class="done">DONE</div>
-                    {% else %}
-                        <div class="open">NOT DONE</div>
-                    {% endif %}
-                </div>
-
-                <div class="row form-row mb-3">
-                    <div class="col col-xs-1">
-                        <form method="post" action="change-state/{{ todo.id }}">
-                            {% csrf_token %}
-                            {% if todo.state %}
-                                <button class="btn btn-outline-success" disabled>CHANGE STATE</button>
-                            {% else %}
-                                <button class="btn btn-outline-success">CHANGE STATE</button>
-                            {% endif %}
-                        </form>
-                    </div>
-
-                    <div class="col col-xs-2">
-                        <form method="post" action="delete-todo/{{ todo.id }}">
-                            {% csrf_token %}
-                            <button class="btn btn-danger">DELETE</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-
-        {% endfor %}
+            <a class="page-link" href="/add-todo/"> + Add New</a>
+        </div>
     </div>
-{% else %}
-    <h2>No ToDos</h2>
-{% endif %}
 
-</body>
-</html>
+
+{% endblock %}

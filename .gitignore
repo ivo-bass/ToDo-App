@@ -5,3 +5,7 @@ __pycache__
 
 .idea/
 
+package.json
+package-lock.json
+
+node_modules
