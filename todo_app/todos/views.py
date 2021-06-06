@@ -7,6 +7,8 @@ from todo_app.todos.models import Todo, Priority, Category
 def index(request):
     today = date.today()
     todos = Todo.objects.filter(due_date=today)
+    todos = todos.filter(state=False)
+    todos = reversed(todos)
     context = {
         'todos': todos,
     }
@@ -14,8 +16,10 @@ def index(request):
 
 
 def dashboard_page(request):
+    todos = Todo.objects.all()
+    todos = reversed(todos)
     context = {
-        'todos': Todo.objects.all(),
+        'todos': todos,
     }
     return render(request, 'dashboard.html', context)
 
