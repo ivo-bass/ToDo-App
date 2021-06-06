@@ -15,6 +15,7 @@ def index(request):
 
 def dashboard_page(request):
     todos = Todo.objects.order_by('due_date').all()
+    todos.order_by('pk').reverse()
     context = {
         'todos': todos,
     }
@@ -53,9 +54,12 @@ def create_todo(request):
 
 
 def edit_todo_page(request, pk):
+    todo = Todo.objects.get(pk=pk)
+    due_date = todo.due_date.strftime("%Y-%m-%d")
+
     context = {
-        'pk': pk,
-        'todos': Todo.objects.all(),
+        'date': due_date,
+        'todo': todo,
         'priorities': Priority.objects.all(),
         'categories': Category.objects.all(),
     }
@@ -111,12 +115,10 @@ def delete_confirm(request, pk):
     return render(request, 'delete-confirm.html', context)
 
 
-# TODO: SIMPLE VIEW
-
-# TODO 1: Add CRUD PAGE
-
-# TODO 2: SORT BY DUE DATE
-
-# TODO 3: SORT BY CATEGORY
-
-# TODO 4: ADD HISTORY
+def history_page(request):
+    todos = Todo.objects.filter(state=True)
+    todos.order_by('due_date')
+    context = {
+        'todos': todos,
+    }
+    return render(request, 'history.html', context)

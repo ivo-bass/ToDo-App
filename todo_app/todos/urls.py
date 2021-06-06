@@ -1,10 +1,11 @@
 from django.urls import path
 
 from todo_app.todos.views import index, create_todo, change_state, delete_todo, dashboard_page, add_todo_page, \
-    details_page, delete_confirm, edit_todo_page, update_todo
+    details_page, delete_confirm, edit_todo_page, update_todo, history_page
 
 urlpatterns = [
     path('', index),
+    path('history/', history_page),
     path('dashboard/', dashboard_page),
     path('add-todo/', add_todo_page),
     path('create/', create_todo),

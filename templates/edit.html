@@ -2,20 +2,20 @@
 
 {% block content %}
 
-    <h2>Add ToDo</h2>
+    <h2>Edit ToDo</h2>
     <div class="container container-fluid">
         <div class="todo">
-            <form method="post" action="/update/{{ pk }}">
+            <form method="post" action="/update/{{ todo.id }}">
                 {% csrf_token %}
 
                 <div class="mb-3">
                     <label class="form-label">Title:</label>
-                    <input type="text" class="form-control" name="title" required>
+                    <input type="text" class="form-control" name="title" required value="{{ todo.title }}">
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Description:</label>
-                    <textarea class="form-control" name="description" rows="3"></textarea></label>
+                    <textarea class="form-control" name="description" rows="3">{{ todo.description }}</textarea></label>
                 </div>
 
                 <div class="row form-row mb-3">
@@ -23,7 +23,7 @@
                     <div class="col col-md-6">
                         <label class="form-label">Due Date:
                             <input type="date" class="form-control" name="due-date" required
-                                   pattern="\d{4}-\d{2}-\d{2}">
+                                   pattern="\d{4}-\d{2}-\d{2}" value="{{ date }}">
                             <span class="validity"></span>
                         </label>
                     </div>
@@ -32,7 +32,7 @@
                         <label class="form-label">Priority:
                             <select class="form-select" name="priority">
                                 {% for priority in priorities %}
-                                    {% if priority.name == "Normal" %}
+                                    {% if priority.name == todo.priority.name %}
                                         <option value="{{ priority.name }}" selected>{{ priority.name }}</option>
                                     {% else %}
                                         <option value="{{ priority.name }}">{{ priority.name }}</option>
@@ -46,7 +46,7 @@
                         <label class="form-label">Category:
                             <select class="form-select" name="category">
                                 {% for category in categories %}
-                                    {% if category.name == "" %}
+                                    {% if category.name == todo.category.name %}
                                         <option value="{{ category.name }}" selected>{{ category.name }}</option>
                                     {% else %}
                                         <option value="{{ category.name }}">{{ category.name }}</option>
