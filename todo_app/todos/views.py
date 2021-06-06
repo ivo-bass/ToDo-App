@@ -6,9 +6,7 @@ from todo_app.todos.models import Todo, Priority, Category
 
 def index(request):
     today = date.today()
-    todos = Todo.objects.filter(due_date=today)
-    todos = todos.filter(state=False)
-    todos = reversed(todos)
+    todos = Todo.objects.filter(due_date=today, state=False)
     context = {
         'todos': todos,
     }
@@ -16,8 +14,7 @@ def index(request):
 
 
 def dashboard_page(request):
-    todos = Todo.objects.all()
-    todos = reversed(todos)
+    todos = Todo.objects.order_by('due_date').all()
     context = {
         'todos': todos,
     }
@@ -50,6 +47,36 @@ def create_todo(request):
         priority=priority,
         category=category,
     )
+    todo.save()
+
+    return redirect(dashboard_page)
+
+
+def edit_todo_page(request, pk):
+    context = {
+        'pk': pk,
+        'todos': Todo.objects.all(),
+        'priorities': Priority.objects.all(),
+        'categories': Category.objects.all(),
+    }
+    return render(request, 'edit.html', context)
+
+
+def update_todo(request, pk):
+    todo = Todo.objects.get(pk=pk)
+    todo.title = request.POST['title']
+    todo.description = request.POST['description']
+    todo.due_date = request.POST['due-date']
+    # todo.state = request.POST['state']
+
+    priority_name = request.POST['priority']
+    category_name = request.POST['category']
+
+    priority = Priority.objects.filter(name=priority_name).first()
+    category = Category.objects.filter(name=category_name).first()
+
+    todo.priority = priority
+    todo.category = category
     todo.save()
 
     return redirect(dashboard_page)

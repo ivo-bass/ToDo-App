@@ -11,15 +11,15 @@
         h1 {
             margin: 5px;
             text-align: center;
-            padding: 5px;
-            color: #1a0090
+            padding: 50px;
+            color: #1a0090;
         }
 
         h2 {
             margin: 5px;
             text-align: center;
-            padding: 5px;
-            color: #1a0090
+            padding: 50px;
+            color: #1a0090;
         }
 
         div.done {
@@ -69,7 +69,7 @@
 <body style="background: aliceblue">
 
 
-<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #1a0090;">
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark" style="background-color: #1a0090;">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">Home</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
@@ -78,17 +78,14 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-{#                <li class="nav-item">#}
-{#                    <a class="nav-link active" aria-current="page" href="/">Home</a>#}
-{#                </li>#}
                 <li class="nav-item">
-                    <a class="nav-link" href="/dashboard/">DashBoard</a>
+                    <a class="nav-link" aria-current="page" href="/dashboard/">DashBoard</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">History</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/add-todo/">Add New Todo</a>
+                    <a class="nav-link" aria-current="page" href="/add-todo/">Add New Todo</a>
                 </li>
             </ul>
             <form class="d-flex">

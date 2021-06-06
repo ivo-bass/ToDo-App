@@ -8,12 +8,14 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">{{ todo.title }}</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
+                        <h5 class="modal-title" id="exampleModalLabel">Do you really want to delete this task?</h5>
                     </div>
                     <div class="modal-body">
-                        Do you really want to delete this task?
+                        <div class="text-sm-left">Title:  {{ todo.title }}</div>
+                        <br>
+                        <div class="text-sm-left">Description:  {{ todo.description }}</div>
+                        <br>
+                        <div class="text-sm-left">Due date:  {{ todo.due_date }}</div>
                     </div>
                     <div class="modal-footer">
                         <button type="reset" class="btn btn-outline-success">
