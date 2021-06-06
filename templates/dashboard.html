@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>DashBoard</h1>
+    <h2>DashBoard</h2>
 
     <div class="container container-fluid">
         <div class="todo">
@@ -11,7 +11,7 @@
                 <div class="list-group">
                     {% for todo in todos %}
                         <div class="list-group-item list-group-item-action" style="padding: 20px">
-                            <h5 class="mb-1" style="text-emphasis-style: filled">{{ todo.title }}</h5>
+                            <h3 class="mb-1" style="text-emphasis-style: filled">{{ todo.title }}</h3>
 
                             <div class="row row-cols-4 mb-md-3 mt-md-3">
 
