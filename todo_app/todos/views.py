@@ -75,6 +75,15 @@ def delete_todo(request, pk):
     todo.delete()
     return redirect(dashboard_page)
 
+
+def delete_confirm(request, pk):
+    todo = Todo.objects.get(pk=pk)
+    context = {
+        'todo': todo,
+    }
+    return render(request, 'delete-confirm.html', context)
+
+
 # TODO: SIMPLE VIEW
 
 # TODO 1: Add CRUD PAGE

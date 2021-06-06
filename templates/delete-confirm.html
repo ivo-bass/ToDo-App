@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form method="post" action="/delete-todo/{{ todo.id }}">
+        {% csrf_token %}
+{#        <div class="modal fade" id="exampleModal" tabindex="-1"#}
+{#             aria-labelledby="exampleModalLabel" aria-hidden="true">#}
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">{{ todo.title }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Do you really want to delete this task?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="reset" class="btn btn-outline-success">
+                            <a href="/dashboard">No</a>
+                        </button>
+                        <button type="submit" class="btn btn-danger">
+                            Yes
+                        </button>
+                    </div>
+                </div>
+            </div>
+{#        </div>#}
+    </form>
+
+{% endblock %}
