@@ -14,8 +14,7 @@ def index(request):
 
 
 def dashboard_page(request):
-    todos = Todo.objects.order_by('due_date').all()
-    todos.order_by('pk').reverse()
+    todos = Todo.objects.all().order_by('pk').order_by('due_date')
     context = {
         'todos': todos,
     }
@@ -55,11 +54,8 @@ def create_todo(request):
 
 def edit_todo_page(request, pk):
     todo = Todo.objects.get(pk=pk)
-    # "%m/%d/%Y, %H:%M:%S"
-    print()
-    print(todo.due_date)
-    print()
-    # yyyy-MM-ddThh:mm
+    # "%m/%d/%Y, %H:%M:%S" - proper symbols
+    # yyyy-MM-ddThh:mm - expected format - "%Y-%m-%dT%H:%M"
     due_date = todo.due_date.strftime("%Y-%m-%dT%H:%M")
 
     context = {
