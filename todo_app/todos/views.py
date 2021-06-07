@@ -1,12 +1,20 @@
+from datetime import timedelta
+
 from django.shortcuts import render, redirect
-from django.utils.datetime_safe import date
+from django.utils.datetime_safe import datetime
+from django.utils.timezone import make_aware
 
 from todo_app.todos.models import Todo, Priority, Category
 
 
 def index(request):
-    today = date.today()
-    todos = Todo.objects.filter(due_date=today, state=False)
+    # !!! Important
+    naive_datetime = datetime.today()
+    naive_datetime += timedelta(days=1)
+    aware_datetime = make_aware(naive_datetime)
+
+    todos = Todo.objects.filter(due_date__lt=aware_datetime, state=False)
+    todos.order_by('pk').order_by('due_date')
     context = {
         'todos': todos,
     }
@@ -118,7 +126,7 @@ def delete_confirm(request, pk):
 
 def history_page(request):
     todos = Todo.objects.filter(state=True)
-    todos.order_by('due_date')
+    todos.order_by('pk').order_by('due_date')
     context = {
         'todos': todos,
     }
