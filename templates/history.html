@@ -12,19 +12,21 @@
                     {% for todo in todos %}
                         <a href="/details/{{ todo.id }}" class="list-group-item list-group-item-action">
 
-                            <div class="row row-cols-2">
+                            <div class="row row-cols-3">
 
                                 <div class="col-xs-1 d-flex justify-content-start">
                                     <h5 class="mb-1" style="text-emphasis-style: filled">{{ todo.title }}</h5>
                                 </div>
 
-                                <div class="col-xs-2 d-flex justify-content-end">
-                                    {% if todo.priority.name == "High" %}
-                                        <small class="text-danger">high priority</small>
-                                    {% elif todo.priority.name == "Normal" %}
-                                        <small class="text-warning">normal priority</small>
+                                <div class="col-xs-2 d-flex justify-content-center">
+                                    <small>{{ todo.due_date.date }}</small>
+                                </div>
+
+                                <div class="col-xs-3 d-flex justify-content-end">
+                                    {% if todo.state %}
+                                        <small class="text-success"> done </small>
                                     {% else %}
-                                        <small class="text-success">low priority</small>
+                                        <small class="text-danger"> not done </small>
                                     {% endif %}
                                 </div>
                             </div>
@@ -32,7 +34,7 @@
                     {% endfor %}
                 </div>
             {% else %}
-                <h2>Nothing for today</h2>
+                <h2>Nothing in History</h2>
             {% endif %}
 
             <a class="page-link" href="/add-todo/"> + Add New</a>
