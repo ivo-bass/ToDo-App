@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
+{% block title %}
+    / History
+{% endblock %}
+
 {% block content %}
 
     <h2>All completed and past tasks</h2>
@@ -37,7 +41,6 @@
                 <h2>Nothing in History</h2>
             {% endif %}
 
-            <a class="page-link" href="/add-todo/"> + Add New</a>
         </div>
     </div>
 
