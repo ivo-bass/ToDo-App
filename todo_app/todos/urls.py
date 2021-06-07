@@ -12,6 +12,7 @@ urlpatterns = [
     path('edit/<int:pk>', edit_todo_page),
     path('update/<int:pk>', update_todo),
     path('details/<int:pk>', details_page),
+    path('history/details/<int:pk>', details_page),
     path('change-state/<int:pk>', change_state),
     path('delete-confirm/<int:pk>', delete_confirm),
     path('delete-todo/<int:pk>', delete_todo),
