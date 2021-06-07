@@ -55,7 +55,12 @@ def create_todo(request):
 
 def edit_todo_page(request, pk):
     todo = Todo.objects.get(pk=pk)
-    due_date = todo.due_date.strftime("%Y-%m-%d")
+    # "%m/%d/%Y, %H:%M:%S"
+    print()
+    print(todo.due_date)
+    print()
+    # yyyy-MM-ddThh:mm
+    due_date = todo.due_date.strftime("%Y-%m-%dT%H:%M")
 
     context = {
         'date': due_date,
