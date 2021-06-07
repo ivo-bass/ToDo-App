@@ -8,13 +8,22 @@ from todo_app.todos.models import Todo, Priority, Category
 
 
 def index(request):
+    # today_todos = Todo.objects.filter(due_date__gte=datetime.date.now().replace(hour=0, minute=0, second=0))
+
+
+
+
     # !!! Important
     naive_datetime = datetime.today()
-    naive_datetime += timedelta(days=1)
-    aware_datetime = make_aware(naive_datetime)
+    current_time = make_aware(naive_datetime)
+    naive_datetime = naive_datetime.replace(hour=23, minute=59, second=59)
+    end_time = make_aware(naive_datetime)
 
-    todos = Todo.objects.filter(due_date__lt=aware_datetime, state=False)
-    todos.order_by('pk').order_by('due_date')
+    todos = Todo.objects \
+        .filter(due_date__gte=current_time) \
+        .filter(due_date__lte=end_time) \
+        .order_by('due_date')
+
     context = {
         'todos': todos,
     }
@@ -25,9 +34,8 @@ def dashboard_page(request):
     naive_datetime = datetime.today()
     aware_datetime = make_aware(naive_datetime)
 
-    todos = Todo.objects\
-        .filter(due_date__gte=aware_datetime)\
-        .order_by('pk')\
+    todos = Todo.objects \
+        .filter(due_date__gte=aware_datetime) \
         .order_by('due_date')
 
     context = {
@@ -52,8 +60,13 @@ def create_todo(request):
     priority_name = request.POST['priority']
     category_name = request.POST['category']
 
-    priority = Priority.objects.filter(name=priority_name).first()
-    category = Category.objects.filter(name=category_name).first()
+    priority = Priority.objects \
+        .filter(name=priority_name) \
+        .first()
+
+    category = Category.objects \
+        .filter(name=category_name) \
+        .first()
 
     todo = Todo(
         title=title,
@@ -92,8 +105,13 @@ def update_todo(request, pk):
     priority_name = request.POST['priority']
     category_name = request.POST['category']
 
-    priority = Priority.objects.filter(name=priority_name).first()
-    category = Category.objects.filter(name=category_name).first()
+    priority = Priority.objects \
+        .filter(name=priority_name) \
+        .first()
+
+    category = Category.objects \
+        .filter(name=category_name) \
+        .first()
 
     todo.priority = priority
     todo.category = category
@@ -132,9 +150,17 @@ def delete_confirm(request, pk):
 
 
 def history_page(request):
-    todos = Todo.objects.filter(state=True)
-    todos.order_by('pk').order_by('due_date')
+    naive_datetime = datetime.today()
+    aware_datetime = make_aware(naive_datetime)
+
+    past_todos = Todo.objects.filter(due_date__lte=aware_datetime)
+    done_todos = Todo.objects.filter(state=True)
+
+    history_todos = past_todos.union(done_todos)
+
+    history_todos.order_by('due_date')
+
     context = {
-        'todos': todos,
+        'todos': history_todos,
     }
     return render(request, 'history.html', context)
