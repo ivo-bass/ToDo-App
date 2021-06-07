@@ -22,7 +22,14 @@ def index(request):
 
 
 def dashboard_page(request):
-    todos = Todo.objects.all().order_by('pk').order_by('due_date')
+    naive_datetime = datetime.today()
+    aware_datetime = make_aware(naive_datetime)
+
+    todos = Todo.objects\
+        .filter(due_date__gte=aware_datetime)\
+        .order_by('pk')\
+        .order_by('due_date')
+
     context = {
         'todos': todos,
     }
