@@ -164,3 +164,6 @@ def history_page(request):
         'todos': history_todos,
     }
     return render(request, 'history.html', context)
+
+
+# TODO: Separate navbar from base

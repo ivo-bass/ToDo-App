@@ -22,6 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # 'django-insecure-)@5*t4$k25#(ux#*7al3fkdz*-=-8#8s_7b@_jmx)scsu*bl5^'
 with open('/etc/secret_key.txt') as f:
     SECRET_KEY = f.read().strip()
+#SECRET_KEY=os.environ.get("TODO_APP_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
