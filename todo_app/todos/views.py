@@ -162,7 +162,7 @@ def history_page(request):
     aware_datetime = make_aware(naive_datetime)
 
     past_todos = Todo.objects.filter(due_date__lte=aware_datetime)
-    done_todos = Todo.objects.filter(state=True)
+    done_todos = Todo.objects.filter(is_done=True)
 
     history_todos = past_todos.union(done_todos)
 

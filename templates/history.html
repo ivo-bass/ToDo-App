@@ -22,12 +22,12 @@
                                     <h5 class="mb-1" style="text-emphasis-style: filled">{{ todo.title }}</h5>
                                 </div>
 
-                                <div class="col-xs-2 d-flex justify-content-center">
+                                <div class="col-xs-2 d-flex justify-content-end">
                                     <small>{{ todo.due_date.date }}</small>
                                 </div>
 
                                 <div class="col-xs-3 d-flex justify-content-end">
-                                    {% if todo.state %}
+                                    {% if todo.is_done %}
                                         <small class="text-success"> done </small>
                                     {% else %}
                                         <small class="text-danger"> not done </small>
