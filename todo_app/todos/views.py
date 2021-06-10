@@ -10,9 +10,6 @@ from todo_app.todos.models import Todo, Priority, Category
 def index(request):
     # today_todos = Todo.objects.filter(due_date__gte=datetime.date.now().replace(hour=0, minute=0, second=0))
 
-
-
-
     # !!! Important
     naive_datetime = datetime.today()
     current_time = make_aware(naive_datetime)
@@ -20,8 +17,7 @@ def index(request):
     end_time = make_aware(naive_datetime)
 
     todos = Todo.objects \
-        .filter(due_date__gte=current_time) \
-        .filter(due_date__lte=end_time) \
+        .filter(due_date__gte=current_time, due_date__lte=end_time) \
         .order_by('due_date')
 
     context = {
@@ -164,6 +160,5 @@ def history_page(request):
         'todos': history_todos,
     }
     return render(request, 'history.html', context)
-
 
 # TODO: Separate navbar from base
