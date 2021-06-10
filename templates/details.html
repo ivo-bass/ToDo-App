@@ -65,7 +65,7 @@
                 </div>
 
                 <div class="col-xs-3 d-flex justify-content-center">
-                    {% if todo.state %}
+                    {% if todo.is_done %}
                         <small class="text-success"> done </small>
                     {% else %}
                         <small class="text-danger"> not done </small>

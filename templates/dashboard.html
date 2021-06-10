@@ -64,7 +64,7 @@
                                 </div>
 
                                 <div class="col-xs-3 d-flex justify-content-center">
-                                    {% if todo.state %}
+                                    {% if todo.is_done %}
                                         <small class="text-success"> done </small>
                                     {% else %}
                                         <small class="text-danger"> not done </small>
@@ -83,7 +83,7 @@
                                 <div class="col">
                                     <form method="post" action="/change-state/{{ todo.id }}">
                                         {% csrf_token %}
-                                        {% if todo.state %}
+                                        {% if todo.is_done %}
                                             <button class="btn btn-outline-success" disabled>DONE</button>
                                         {% else %}
                                             <button class="btn btn-outline-success">DONE</button>

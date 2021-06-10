@@ -12,7 +12,7 @@ class Todo(models.Model):
         max_length=30,
     )
 
-    state = models.BooleanField(
+    is_done = models.BooleanField(
         default=False,
     )
 
