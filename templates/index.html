@@ -2,9 +2,9 @@
 
 {% block content %}
 
-    <h2>Today's tasks left</h2>
+    <h1>Today's tasks left</h1>
 
-    <div class="container" style="max-width: 750px">
+    <div class="container">
         <div class="todo">
             {% if todos %}
 
@@ -39,6 +39,9 @@
                 <h2>Nothing for today</h2>
             {% endif %}
 
+        </div>
+        <br/>
+        <div class="container">
             <a class="page-link" href="/add-todo/"> + Add New</a>
         </div>
     </div>

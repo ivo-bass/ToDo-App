@@ -1,3 +1,5 @@
+{% load static %}
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,77 +14,12 @@
           integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/startbootstrap-sb-admin-2/4.1.3/css/sb-admin-2.min.css">
-
-    <style>
-        h1 {
-            margin: 5px;
-            text-align: center;
-            padding: 50px;
-        }
-
-        h2 {
-            margin: 5px;
-            text-align: center;
-            padding: 50px;
-            {#color: rgba(0, 31, 144, 0.9);#}
-        }
-
-        h3 {
-            text-align: center;
-            color: rgba(0, 31, 144, 0.9);
-        }
-
-        div.done {
-            color: green;
-            font-weight: bold;
-            c9e1fd;
-        }
-
-        div.open {
-            color: #B00020;
-            font-weight: bold;
-        }
-
-        div.todo {
-            display: block;
-            background: #fdfdee;
-            border: 1px solid rgba(0, 31, 144, 0.8);
-            box-shadow: 5px 10px rgba(0, 31, 144, 0.4);
-
-            border-radius: 10px;
-            margin: 10px;
-            text-align: center;
-            padding: 50px;
-        }
-
-        div.todo p {
-            font-size: 20px;
-            font-weight: bold;
-            text-decoration: underline;
-        }
-
-        div.todo div.description {
-            padding: 10px;
-        }
-
-        div.container {
-            max-width: 850px;
-            background: rgba(238, 232, 170, 0.8);
-        {#color: #1a0090;#} display: flex;
-            flex-direction: column;
-            margin: auto;
-            padding: 10px;
-            border-radius: 10px;
-        }
-
-    </style>
-
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
 </head>
 
-<body style="background: rgb(238, 232, 170)">
+<body>
 
-
-<nav class="navbar sticky-top navbar-expand-lg navbar-dark" style="background-color: rgba(0,31,144,0.8);">
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">Home</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
@@ -92,13 +29,13 @@
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="/dashboard/">DashBoard</a>
+                    <a class="nav-link" aria-current="page" href="{% url 'dashboard' %}">DashBoard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="/history/">History</a>
+                    <a class="nav-link" aria-current="page" href="{% url 'history' %}">History</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="/add-todo/">Add New Todo</a>
+                    <a class="nav-link" aria-current="page" href="{% url 'add-todo' %}">Add New Todo</a>
                 </li>
             </ul>
             <form class="d-flex">
@@ -115,7 +52,6 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/startbootstrap-sb-admin-2/4.1.3/js/sb-admin-2.min.js">
 </script>
-
 
 </body>
 </html>
