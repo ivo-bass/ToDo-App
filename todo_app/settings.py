@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'todo_app.todos',
+    'todo_app.forms',
 ]
 
 MIDDLEWARE = [

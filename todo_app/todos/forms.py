@@ -1,5 +1,5 @@
 from django import forms
-from django.utils import timezone
+# from django.utils import timezone
 
 from todo_app.todos.models import Todo
 
@@ -13,7 +13,7 @@ class CreateTodoForm(forms.ModelForm):
                 attrs={
                     'class': 'form-control',
                     'placeholder': 'Enter Title here'
-                }
+                },
             ),
             'description': forms.Textarea(
                 attrs={
