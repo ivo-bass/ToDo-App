@@ -55,42 +55,19 @@ def add_todo_page(request):
 
 def edit_todo_page(request, pk):
     todo = Todo.objects.get(pk=pk)
-    # "%m/%d/%Y, %H:%M:%S" - proper symbols
-    # yyyy-MM-ddThh:mm - expected format - "%Y-%m-%dT%H:%M"
-    due_date = todo.due_date.strftime("%Y-%m-%dT%H:%M")
 
-    context = {
-        'date': due_date,
-        'todo': todo,
-        'priorities': Priority.objects.all(),
-        'categories': Category.objects.all(),
-    }
+    if request.method == 'POST':
+        form = CreateTodoForm(request.POST, instance=todo)
+        if form.is_valid():
+            todo = form.save()
+            todo.save()
+            return redirect(dashboard_page)
+    else:
+        form = CreateTodoForm(instance=todo)
+        form.fields['due_date'].widget.format = "%Y-%m-%dT%H:%M"
+
+    context = {'form': form}
     return render(request, 'edit.html', context)
-
-
-def update_todo(request, pk):
-    todo = Todo.objects.get(pk=pk)
-    todo.title = request.POST['title']
-    todo.description = request.POST['description']
-    todo.due_date = request.POST['due-date']
-    # todo.state = request.POST['state']
-
-    priority_name = request.POST['priority']
-    category_name = request.POST['category']
-
-    priority = Priority.objects \
-        .filter(name=priority_name) \
-        .first()
-
-    category = Category.objects \
-        .filter(name=category_name) \
-        .first()
-
-    todo.priority = priority
-    todo.category = category
-    todo.save()
-
-    return redirect(dashboard_page)
 
 
 def details_page(request, pk):
