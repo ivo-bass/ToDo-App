@@ -28,7 +28,7 @@ with open('/etc/secret_key.txt') as f:
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'f262360f5e6a.ngrok.io',
+    '264f03a82a0d.ngrok.io',
     '127.0.0.1',
 ]
 

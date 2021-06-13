@@ -6,7 +6,7 @@
 
 
 {% block content %}
-    <form method="post" action="{% url 'delete' todo.id %}">
+    <form method="post">
         {% csrf_token %}
 
         <div class="container container-fluid">
@@ -22,7 +22,7 @@
                     <br>
                     <div class="text-sm-left">Due date: {{ todo.due_date }}</div>
                 </div>
-            <hr/>
+                <hr/>
                 <div>
                     <button class="btn btn-outline-success">No!
                         <a href="{% url 'dashboard' %}" style="color: limegreen;"></a>

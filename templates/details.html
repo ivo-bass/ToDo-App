@@ -93,7 +93,7 @@
                 </div>
 
                 <div class="col">
-                    <form method="post" action="{% url 'edit' todo.id %}">
+                    <form method="get" action="{% url 'edit' todo.id %}">
                         {% csrf_token %}
                         <button class="btn btn-outline-warning">
                             EDIT
@@ -102,7 +102,7 @@
                 </div>
 
                 <div class="col">
-                    <form method="post" action="{% url 'delete confirm' todo.id %}">
+                    <form method="get" action="{% url 'delete confirm' todo.id %}">
 
                         {% csrf_token %}
                         <button class="btn btn-outline-danger">

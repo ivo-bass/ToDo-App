@@ -31,6 +31,16 @@ nav {
     color: darkslategray;
 }
 
+.navbar-toggler-icon {
+    display: inline-block;
+    width: 1.5em;
+    height: 1.5em;
+    vertical-align: middle;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+}
+
 div.container {
     max-width: 750px;
     background: darkslategray;
@@ -100,25 +110,6 @@ div.open {
     font-weight: bold;
 }
 
-/*.a {*/
-/*    position: relative;*/
-/*    line-height: 1.25;*/
-/*    color: limegreen;*/
-/*    background-color: darkslategray;*/
-/*    border: 2px solid limegreen;*/
-/*    border-radius: 10px;*/
-/*    box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.4);*/
-/*}*/
-
-/*.a:hover {*/
-/*    z-index: 2;*/
-/*    color: darkslategrey;*/
-/*    text-decoration: none;*/
-/*    background-color: limegreen;*/
-/*    border: 2px solid limegreen;*/
-/*    border-radius: 10px;*/
-/*    box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.4);*/
-/*}*/
 
 .page-link {
     position: relative;

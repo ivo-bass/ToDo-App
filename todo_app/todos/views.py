@@ -70,6 +70,17 @@ def edit_todo_page(request, pk):
     return render(request, 'edit.html', context)
 
 
+def delete_confirm(request, pk):
+    todo = Todo.objects.get(pk=pk)
+
+    if request.method == "POST":
+        todo.delete()
+        return redirect(dashboard_page)
+
+    context = {'todo': todo}
+    return render(request, 'delete-confirm.html', context)
+
+
 def details_page(request, pk):
     todo = Todo.objects.get(pk=pk)
     context = {
@@ -83,20 +94,6 @@ def change_state(request, pk):
     todo.is_done = not todo.is_done
     todo.save()
     return redirect(dashboard_page)
-
-
-def delete_todo(request, pk):
-    todo = Todo.objects.get(pk=pk)
-    todo.delete()
-    return redirect(dashboard_page)
-
-
-def delete_confirm(request, pk):
-    todo = Todo.objects.get(pk=pk)
-    context = {
-        'todo': todo,
-    }
-    return render(request, 'delete-confirm.html', context)
 
 
 def history_page(request):
