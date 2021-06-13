@@ -100,6 +100,26 @@ div.open {
     font-weight: bold;
 }
 
+/*.a {*/
+/*    position: relative;*/
+/*    line-height: 1.25;*/
+/*    color: limegreen;*/
+/*    background-color: darkslategray;*/
+/*    border: 2px solid limegreen;*/
+/*    border-radius: 10px;*/
+/*    box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.4);*/
+/*}*/
+
+/*.a:hover {*/
+/*    z-index: 2;*/
+/*    color: darkslategrey;*/
+/*    text-decoration: none;*/
+/*    background-color: limegreen;*/
+/*    border: 2px solid limegreen;*/
+/*    border-radius: 10px;*/
+/*    box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.4);*/
+/*}*/
+
 .page-link {
     position: relative;
     /*display: block;*/
@@ -264,4 +284,18 @@ div.open {
 
 .text-info {
     color: deepskyblue;
+}
+
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 18rem;
+    pointer-events: auto;
+    background-color: black;
+    background-clip: padding-box;
+    border: 2px solid limegreen;
+    border-radius: 10px;
+    outline: 0;
+    box-shadow: rgba(0, 0, 0, 0.4);
 }

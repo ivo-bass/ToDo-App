@@ -10,58 +10,58 @@
     <h1>Edit ToDo</h1>
     <div class="container container-fluid">
         <div class="todo">
-            <form method="post" action="/update/{{ todo.id }}">
+            <form method="post" action="{% url 'add-todo' %}">
                 {% csrf_token %}
 
                 <div class="mb-3">
-                    <label class="form-label">Title:</label>
-                    <input type="text" class="form-control" name="title" required value="{{ todo.title }}">
+                    {{ form.title.label }}
+                    {{ form.title }}
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Description:</label>
-                    <textarea class="form-control" name="description" rows="3">{{ todo.description }}</textarea></label>
+                    {{ form.description.label }}
+                    {{ form.description }}
                 </div>
 
-                <div class="row form-row mb-3">
+                <div class="row form-row row-cols-4 mb-1">
 
-                    <div class="col col-md-6">
-                        <label class="form-label">Due Date:
-                            <input type="datetime-local" class="form-control" name="due-date" required
-                                   value="{{ date }}">
-                            <span class="validity"></span>
-                        </label>
+                    <div class="col d-flex justify-content-center">
+                        {{ form.due_date.label }}
                     </div>
 
-                    <div class="col col-md-4">
-                        <label class="form-label">Priority:
-                            <select class="form-select" name="priority">
-                                {% for priority in priorities %}
-                                    {% if priority.name == todo.priority.name %}
-                                        <option value="{{ priority.name }}" selected>{{ priority.name }}</option>
-                                    {% else %}
-                                        <option value="{{ priority.name }}">{{ priority.name }}</option>
-                                    {% endif %}
-                                {% endfor %}
-                            </select>
-                        </label>
+                    <div class="col d-flex justify-content-center">
+                        {{ form.priority.label }}
                     </div>
 
-                    <div class="col col-md-2">
-                        <label class="form-label">Category:
-                            <select class="form-select" name="category">
-                                {% for category in categories %}
-                                    {% if category.name == todo.category.name %}
-                                        <option value="{{ category.name }}" selected>{{ category.name }}</option>
-                                    {% else %}
-                                        <option value="{{ category.name }}">{{ category.name }}</option>
-                                    {% endif %}
-                                {% endfor %}
-                            </select>
-                        </label>
+                    <div class="col d-flex justify-content-center">
+                        {{ form.category.label }}
+                    </div>
+
+                    <div class="col d-flex justify-content-center">
+                        {{ form.is_done.label }}
                     </div>
 
                 </div>
+                <div class="row form-row row-cols-4 mb-5">
+
+                    <div class="col d-flex justify-content-center">
+                        {{ form.due_date }}
+                    </div>
+
+                    <div class="col d-flex justify-content-center">
+                        {{ form.priority }}
+                    </div>
+
+                    <div class="col d-flex justify-content-center">
+                        {{ form.category }}
+                    </div>
+
+                    <div class="col d-flex justify-content-center">
+                        {{ form.is_done }}
+                    </div>
+
+                </div>
+
 
                 <button type="submit" class="btn btn-primary">Update ToDo</button>
 

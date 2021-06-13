@@ -6,33 +6,33 @@
 
 
 {% block content %}
-    <form method="post" action="/delete-todo/{{ todo.id }}">
+    <form method="post" action="{% url 'delete' todo.id %}">
         {% csrf_token %}
-{#        <div class="modal fade" id="exampleModal" tabindex="-1"#}
-{#             aria-labelledby="exampleModalLabel" aria-hidden="true">#}
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Do you really want to delete this task?</h5>
-                    </div>
-                    <div class="modal-body">
-                        <div class="text-sm-left">Title:  {{ todo.title }}</div>
-                        <br>
-                        <div class="text-sm-left">Description:  {{ todo.description }}</div>
-                        <br>
-                        <div class="text-sm-left">Due date:  {{ todo.due_date }}</div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="reset" class="btn btn-outline-success">
-                            <a href="/dashboard">No</a>
-                        </button>
-                        <button type="submit" class="btn btn-danger">
-                            Yes
-                        </button>
-                    </div>
+
+        <div class="container container-fluid">
+            <div class="todo">
+
+                <h5 style="color: red">Do you really want to delete this task?</h5>
+                <hr/>
+
+                <div>
+                    <div class="text-sm-left">Title: {{ todo.title }}</div>
+                    <br>
+                    <div class="text-sm-left">Description: {{ todo.description }}</div>
+                    <br>
+                    <div class="text-sm-left">Due date: {{ todo.due_date }}</div>
+                </div>
+            <hr/>
+                <div>
+                    <button class="btn btn-outline-success">No!
+                        <a href="{% url 'dashboard' %}" style="color: limegreen;"></a>
+                    </button>
+                    <button type="submit" class="btn btn-outline-danger">
+                        Yes
+                    </button>
                 </div>
             </div>
-{#        </div>#}
-    </form>
+        </div>
 
+    </form>
 {% endblock %}

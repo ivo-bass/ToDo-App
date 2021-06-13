@@ -44,3 +44,10 @@ class CreateTodoForm(forms.ModelForm):
                 }
             )
         }
+
+    # def clean(self):
+    #     date_time = self.cleaned_data['due_date'].strftime("%Y-%m-%dT%H:%M")
+    #     print(date_time)
+    #     self.cleaned_data['due_date'] = date_time
+    #     print(self.cleaned_data)
+    #     return self.cleaned_data
