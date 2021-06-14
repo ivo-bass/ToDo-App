@@ -53,8 +53,8 @@ echo "Done"
 
 cd ..
 echo -e "\e[1;31m Creating .gitignore... \e[0m"
-echo "venv/" >> .gitignore
-echo ".vscode/" >> .gitignore
+echo "venv" >> .gitignore
+echo ".vscode" >> .gitignore
 echo ".idea/" >> .gitignore
 echo "__pycache__" >> .gitignore
 
@@ -63,6 +63,9 @@ echo "#$projectname" > README.md
 echo "!!! YOU NEED TO MAKE THE FOLLOWING CHANGES:" >> README.md
 echo "Open 'apps.py' located in $projectname/$firstapp and inside of the class change name to '$projectname.$firstapp'" >> README.md
 echo "In settings.py you need to add '$projectname.$firstapp', to INSTALLED_APPS list." >> README.md
+
+echo "Creating requirements.txt"
+pip freeze > requirements.txt
 
 echo "Initializing git repo..."
 git init
