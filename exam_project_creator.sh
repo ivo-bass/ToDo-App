@@ -12,7 +12,7 @@ echo "Directory '$dirname' was created!"
 cd "$dirname"
 
 echo "Creating virtual environment 'venv'..."
-python -m venv venv
+python3 -m venv venv
 echo "Done"
 
 # shellcheck disable=SC2039
@@ -20,10 +20,10 @@ source venv/bin/activate
 echo "Venv is activated!"
 
 echo "Upgrading pip..."
-python -m pip install --upgrade pip
+python3 -m pip install --upgrade pip
 
 echo "Installing Django..."
-pip install django
+python3 -m pip install django
 
 echo " "
 # shellcheck disable=SC2039
@@ -49,7 +49,7 @@ echo -e "\e[1;31m Write name for your first app \e[0m"
 read firstapp
 
 echo "Creating '$firstapp' app INSIDE '$projectname' directory..."
-python manage.py startapp "$firstapp"
+python3 manage.py startapp "$firstapp"
 
 
 mkdir ./Tests
@@ -93,8 +93,8 @@ echo "STATICFILES_DIRS = [BASE_DIR / 'static']" >> ./$projectname/settings.py
 
 
 echo "Starting initial migrations..."
-python manage.py makemigrations
-python manage.py migrate
+python3 manage.py makemigrations
+python3 manage.py migrate
 echo "Done"
 
 # shellcheck disable=SC2039
@@ -133,7 +133,7 @@ echo " "
 echo "***Script by Ivailo Ignatov - IvoBass***" >> README.md
 
 echo "Creating requirements.txt"
-pip freeze > requirements.txt
+python3 -m pip freeze > requirements.txt
 
 echo "Initializing git repo..."
 git init
